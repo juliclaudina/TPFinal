@@ -1,0 +1,69 @@
+
+<div class="container mx-auto p-6">
+    <h1 class="text-4xl font-bold text-center mb-6">Lista de Países</h1>
+
+    <div class="flex justify-end mb-4">
+        <a href="/api/pais/agregar" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-lg">
+          + Agregar País
+        </a>
+    </div>
+
+    <div class="overflow-x-auto">
+        <table class="min-w-full bg-white border border-gray-300 shadow-md rounded-lg">
+            <thead class="bg-blue-500 text-white">
+                <tr>
+                    <th class="py-3 px-4 text-left">Nombre Oficial</th>
+                    <th class="py-3 px-4 text-left">Capital</th>
+                    <th class="py-3 px-4 text-left">Fronteras</th>
+                    <th class="py-3 px-4 text-left">Área (km²)</th>
+                    <th class="py-3 px-4 text-left">Población</th>
+                    <th class="py-3 px-4 text-left">Índice Gini</th>
+                    <th class="py-3 px-4 text-left">Zonas Horarias</th>
+                    <th class="py-3 px-4 text-left">Creador</th>
+                    <th class="py-3 px-4 text-center">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% 
+                    let totalPoblacion = 0;
+                    let totalArea = 0;
+                    let sumaGini = 0;
+                    let conteoGini = 0;
+                %>
+                <% paises.forEach(pais => { 
+                    totalPoblacion += pais.poblacion || 0;
+                    totalArea += pais.area || 0;
+                    if (pais.gini) {
+                        sumaGini += pais.gini;
+                        conteoGini++;
+                    }
+                %>
+                    <tr class="border-t border-gray-200 hover:bg-gray-100">
+                        <td class="py-3 px-4"><%= pais.nombreOficial %></td>
+                        <td class="py-3 px-4"><%= pais.capital?.join(", ") || "Desconocido" %></td>
+                        <td class="py-3 px-4"><%= (pais.fronteras && pais.fronteras.length > 0) ? pais.fronteras.join(", ") : "N/A" %></td>
+                        <td class="py-3 px-4"><%= pais.area?.toLocaleString() || "0" %></td>
+                        <td class="py-3 px-4"><%= pais.poblacion?.toLocaleString() || "0" %></td>
+                        <td class="py-3 px-4"><%= pais.gini || "N/A" %></td>
+                        <td class="py-3 px-4"><%= pais.timezones?.join(", ") || "N/A" %></td>
+                        <td class="py-3 px-4"><%= pais.creador %></td>
+                        <td class="py-3 px-4 flex justify-center space-x-2">
+                            <a href="/api/pais/editar/<%= pais._id %>" class="bg-yellow-500 hover:bg-yellow-600 text-white px-3 py-1 rounded">Editar</a>
+                            <form action="/api/pais/<%= pais._id %>?_method=DELETE" method="POST" onsubmit="return confirm('¿Estás seguro de que deseas eliminar este país?')">
+                                <button type="submit" class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded">Eliminar</button>
+                            </form>
+                        </td>
+                    </tr>
+                <% }); %>
+
+                <tr class="bg-gray-200 font-semibold border-t border-gray-300">
+                    <td class="py-3 px-4" colspan="3">Totales:</td>
+                    <td class="py-3 px-4"><%= totalArea.toLocaleString() %></td>
+                    <td class="py-3 px-4"><%= totalPoblacion.toLocaleString() %></td>
+                    <td class="py-3 px-4"><%= conteoGini > 0 ? (sumaGini / conteoGini).toFixed(2) : "N/A" %></td>
+                    <td colspan="3"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

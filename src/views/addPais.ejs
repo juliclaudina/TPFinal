@@ -1,0 +1,48 @@
+<form action="/api/pais/agregar" method="POST" class="max-w-xl mx-auto p-4">
+
+  <div class="mb-4">
+    <label class="block font-medium">Nombre Oficial</label>
+    <input type="text" name="nombreOficial" required class="w-full border rounded px-3 py-2" />
+  </div>
+
+  <div class="mb-4">
+    <label class="block font-medium">Capital</label>
+    <input type="text" name="capital" placeholder="Ej: Buenos Aires, La Plata" class="w-full border rounded px-3 py-2" />
+  </div>
+
+  <div class="mb-4">
+    <label class="block font-medium">Fronteras</label>
+    <input type="text" name="fronteras" placeholder="Ej: ARG, BRA" class="w-full border rounded px-3 py-2" />
+  </div>
+
+  <div class="mb-4">
+    <label class="block font-medium">Área</label>
+    <input type="number" name="area" required class="w-full border rounded px-3 py-2" />
+  </div>
+
+  <div class="mb-4">
+    <label class="block font-medium">Población</label>
+    <input type="number" name="poblacion" required class="w-full border rounded px-3 py-2" />
+  </div>
+
+  <div class="mb-4">
+    <label class="block font-medium">Índice Gini</label>
+    <input type="number" name="gini" class="w-full border rounded px-3 py-2" />
+  </div>
+
+  <div class="mb-4">
+    <label class="block font-medium">Zonas Horarias</label>
+    <input type="text" name="timezones" placeholder="UTC−03:00, UTC+01:00" class="w-full border rounded px-3 py-2" />
+  </div>
+
+  <div class="mb-4">
+    <label class="block font-medium">Creador</label>
+    <input type="text" name="creador" required class="w-full border rounded px-3 py-2" />
+  </div>
+
+  <div>
+    <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-4 py-2 rounded">
+      Guardar
+    </button>
+  </div>
+</form>
